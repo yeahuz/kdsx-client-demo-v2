@@ -19,12 +19,15 @@ services:
         command: -js -m 8222 -sd nats
         volumes:
             - ~/volumes/maymun/nats:/nats
+        networks:
+            - demo-v2-internal
     api:
         build:
             context: ./kdsx-api
         restart: always
         networks:
             - app
+            - demo-v2-internal
         labels:
             - traefik.enable=true
             - traefik.http.routers.demo-v2-api.entrypoints=web, websecure
@@ -93,3 +96,5 @@ networks:
     app:
         name: app
         external: true
+    demo-v2-internal:
+        name: demo-v2-internal
