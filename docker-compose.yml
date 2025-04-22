@@ -20,14 +20,14 @@ services:
         volumes:
             - ~/volumes/demo-v2/nats:/nats
         networks:
-            - internal
+            - demo-v2-internal
     api:
         build:
             context: ./kdsx-api
         restart: always
         networks:
             - app
-            - internal
+            - demo-v2-internal
         labels:
             - traefik.enable=true
             - traefik.http.routers.demo-v2-api.entrypoints=web, websecure
@@ -96,5 +96,5 @@ networks:
     app:
         name: app
         external: true
-    internal:
-        name: internal
+    demo-v2-internal:
+        name: demo-v2-internal
